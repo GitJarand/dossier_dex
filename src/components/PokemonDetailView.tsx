@@ -55,13 +55,13 @@ const PokemonDetailView: FunctionComponent<Props> = (props) => {
   useEffect(() => {
     try {
       const pokemonTypes: Array<string> = []
-      const getTypeDisplay = async (pokemon: Pokemon) => {
+      const getTypeDisplay = async () => {
         if (!pokemon) return
         for (let type of pokemon.types) {
           pokemonTypes.push(type.type.name)
         }
       }
-      getTypeDisplay(pokemon)
+      getTypeDisplay()
       setTypes(pokemonTypes)
     } catch (e) {
       setError(e.message)
@@ -71,7 +71,7 @@ const PokemonDetailView: FunctionComponent<Props> = (props) => {
 
   useEffect(() => {
     try {
-      const getWeaknessDisplay = async (pokemon: Pokemon) => {
+      const getWeaknessDisplay = async () => {
         if (!pokemon) return
         let weaknessArray: Array<string> = await fetchPokemonWeakness(pokemon.type_numbers)
         for (let type of pokemon.types) {
@@ -80,7 +80,7 @@ const PokemonDetailView: FunctionComponent<Props> = (props) => {
         setWeakness(weaknessArray)
         setLoading(false)
       }
-      getWeaknessDisplay(pokemon)
+      getWeaknessDisplay()
     } catch (e) {
       setError(e.message)
       alert(error)
@@ -88,7 +88,7 @@ const PokemonDetailView: FunctionComponent<Props> = (props) => {
   }, [types, error, pokemon]);
 
   useEffect(() => {
-    const createFlavorText = (array: Array<Species>) => {
+    const createFlavorText = () => {
       if (!species) return
       for (let text of species.flavor_text_entries) {
         if (text.language.name === 'en') {
@@ -98,7 +98,7 @@ const PokemonDetailView: FunctionComponent<Props> = (props) => {
         }
       }
     }
-    createFlavorText(species)
+    createFlavorText()
   }, [species])
 
   useEffect(() => {
@@ -112,13 +112,12 @@ const PokemonDetailView: FunctionComponent<Props> = (props) => {
 
 
   const log = () => {
-    if (!evoChain) return
-    console.log(evoChain)
+    console.log(props)
   }
 
   return (
     <div style={{maxWidth: '80vw'}}>
-      <button onClick={() => log()}>Log species</button>
+      {/*<button onClick={() => log()}>Log detail</button>*/}
       {loading && (<Loading style={loadingStyles}/>)}
       {evoChain &&
       <div>

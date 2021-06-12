@@ -13,15 +13,30 @@ import {
   NavbarSection,
   PageHeaderButton,
   Tray,
-  TrayHeader
+  TrayHeader,
+  Text,
+  SearchInput
 } from '@dossier/mithra-ui'
 // library.add(faCheckSquare, faCoffee)
 
 const App: React.FC = () => {
 
-  const [showTray, setShowTray] = useState <null | "Search"> (null)
+  const [showTray, setShowTray] = useState<null | "Search">(null)
   const [headerText, setHeaderText] =
-    useState <'Pokédex' | 'Kanto' | 'Johto' | 'Hoenn' | 'Sinnoh' | 'Unova' | 'Kalos' | 'Alola' | 'Galar'> ("Pokédex")
+    useState<'Pokédex' | 'Kanto' | 'Johto' | 'Hoenn' | 'Sinnoh' | 'Unova' | 'Kalos' | 'Alola' | 'Galar'>("Pokédex")
+  const [searchQuery, setSearchQuery] = useState('')
+
+  // @ts-ignore
+  function RouteWithRouteProps({ component: PokemonDisplay, ...rest }) {
+    return (
+      <Route
+        {...rest}
+        render={routeProps => (
+            <PokemonDisplay {...routeProps} search={searchQuery}/>
+        )}
+      />
+    );
+  }
 
   return (
     <main className="container ds-typography-body">
@@ -114,20 +129,26 @@ const App: React.FC = () => {
                   }}
                 >
                   <TrayHeader>{showTray} all Pokémon</TrayHeader>
+                  <SearchInput
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChangeSearch={setSearchQuery}
+                    status={undefined}
+                  />
                 </Tray>
               )
             }>
 
             <Switch>
-              <Route exact path="/" component={PokemonDisplay}/>
-              <Route exact path="/Kanto" component={PokemonDisplay}/>
-              <Route exact path="/Johto" component={PokemonDisplay}/>
-              <Route exact path="/Hoenn" component={PokemonDisplay}/>
-              <Route exact path="/Sinnoh" component={PokemonDisplay}/>
-              <Route exact path="/Unova" component={PokemonDisplay}/>
-              <Route exact path="/Kalos" component={PokemonDisplay}/>
-              <Route exact path="/Alola" component={PokemonDisplay}/>
-              <Route exact path="/Galar" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/Kanto" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/Johto" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/Hoenn" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/Sinnoh" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/Unova" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/Kalos" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/Alola" component={PokemonDisplay}/>
+              <RouteWithRouteProps exact path="/Galar" component={PokemonDisplay}/>
             </Switch>
           </ApplicationLayout>
         </BrowserRouter>

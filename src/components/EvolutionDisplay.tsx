@@ -1,5 +1,5 @@
 import React from 'react';
-import {H6, Icon, Panel, } from '@dossier/mithra-ui';
+import {H6, Icon, Panel} from '@dossier/mithra-ui';
 import {createDisplayTypes} from '../resources/helperFunctions';
 import {Evolution} from '../resources/interface';
 

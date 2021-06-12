@@ -35,6 +35,7 @@ export interface PokemonDisplayListProps {
   match: {
     path: string
   }
+  search: string
 }
 
 export interface Params {

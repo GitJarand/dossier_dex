@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.idea/prettier.xml
+.idea/dossier-dex-1.1.iml
+.idea/modules.xml
